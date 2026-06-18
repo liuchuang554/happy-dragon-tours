@@ -255,7 +255,7 @@ app.post('/admin/content/settings', requireAuth, (req, res) => {
   res.redirect('/admin/content');
 });
 
-app.listen(PORT, '0.0.0.0', () => { setTimeout(function(){ try{require('./seed')}catch(e){} }, 0); setTimeout(function(){ try{require('./seed')}catch(e){} }, 0); 
+app.listen(PORT, '0.0.0.0', () => {   
   console.log('Happy Dragon Tours CMS running on http://localhost:' + PORT);
   console.log('Admin panel: http://localhost:' + PORT + '/admin');
   console.log('Login: ' + (process.env.ADMIN_USERNAME || 'admin') + ' / ' + (process.env.ADMIN_PASSWORD || 'admin123'));
