@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Tours · Happy Dragon Tours</title><link rel="stylesheet" href="/css/admin.css"></head>
+<body><div class="admin-layout">
+<%- include('layout') %>
+<div class="main-content">
+  <div class="page-header"><h1>Day Tours</h1><a href="/admin/tours/new" class="btn btn--primary">+ Add Tour</a></div>
+  <% if (tours.length === 0) { %><div class="empty"><p>No tours yet. <a href="/admin/tours/new">Add your first tour</a>.</p></div><% } else { %>
+  <div class="table-wrap">
+    <table><thead><tr><th>Order</th><th>Title</th><th>Label</th><th>Duration</th><th>Price</th><th></th></tr></thead><tbody>
+    <% tours.forEach(t => { %>
+    <tr>
+      <td><%= t.sort_order %></td>
+      <td><strong><%= t.title %></strong></td>
+      <td><%= t.label || '—' %></td>
+      <td><%= t.duration || '—' %></td>
+      <td><%= t.price || '—' %></td>
+      <td style="white-space:nowrap">
+        <a href="/admin/tours/edit/<%= t.id %>" class="btn btn--sm btn--outline" target="_self">Edit</a>
+        <a href="/admin/tours/delete/<%= t.id %>" class="btn btn--sm btn--danger" onclick="return confirm('Delete this tour?')">Delete</a>
+      </td>
+    </tr>
+    <% }) %>
+    </tbody></table>
+  </div>
+  <% } %>
+</div></div></body>
+</html>

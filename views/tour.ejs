@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= tour.title %> · <%= settings.site_name || 'Happy Dragon Tours' %></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--clr-white:#fff;--clr-bg:#fcf9f6;--clr-surface:#fff;--clr-text:#1c1917;--clr-muted:#78716c;--clr-border:#e6e0d8;--clr-primary:#b91c1c;--clr-primary-dark:#7f1d1d;--clr-primary-light:#fef2f2;--clr-gold:#c8a96e;--clr-gold-dark:#a07d3e;--ff-sans:'Inter',system-ui,sans-serif;--ff-serif:'Playfair Display',Georgia,serif;--max-w:1200px;--nav-h:72px;--radius:6px;--radius-lg:10px;--shadow-sm:0 1px 3px rgba(0,0,0,.06);--shadow-md:0 4px 14px rgba(0,0,0,.08);--shadow-lg:0 10px 40px rgba(0,0,0,.12);--transition:350ms cubic-bezier(.4,0,.2,1)}
+html{scroll-behavior:smooth}body{font-family:var(--ff-sans);color:var(--clr-text);background:var(--clr-bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:auto}
+.container{width:100%;max-width:var(--max-w);margin:0 auto;padding:0 24px}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;background:var(--clr-white);box-shadow:var(--shadow-sm)}
+.nav__inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.nav__logo{display:flex;align-items:center;gap:10px;color:var(--clr-primary)}
+.nav__logo-icon{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:var(--clr-primary);border-radius:50%;color:var(--clr-white);font-size:1rem;font-weight:700;font-family:var(--ff-serif)}
+.nav__logo-text{display:flex;flex-direction:column;line-height:1.15}
+.nav__logo-name{font-family:var(--ff-serif);font-size:1.15rem;font-weight:700}
+.nav__logo-tag{font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;opacity:.65;font-weight:500}
+.nav__links{display:flex;align-items:center;gap:28px;list-style:none}
+.nav__links a{font-size:.85rem;font-weight:500;color:var(--clr-muted);transition:var(--transition)}
+.nav__links a:hover{color:var(--clr-text)}
+.nav__cta{padding:10px 24px;background:var(--clr-primary);color:var(--clr-white) !important;border-radius:var(--radius);font-weight:600}
+.nav__cta:hover{background:var(--clr-primary-dark) !important;color:var(--clr-white) !important}
+
+.hero{border-radius:0 0 var(--radius-lg) var(--radius-lg);overflow:hidden;margin-top:var(--nav-h);position:relative;min-height:420px;display:flex;align-items:flex-end;background:var(--clr-text)}
+.hero__bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a1a1a,#333);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.1);font-size:3rem}
+.hero__bg::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(0,0,0,.65))}
+.hero__content{position:relative;z-index:1;padding:48px 24px 40px;max-width:var(--max-w);margin:0 auto;width:100%}
+.hero__breadcrumb{display:flex;align-items:center;gap:8px;font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:16px}
+.hero__breadcrumb a{color:var(--clr-gold)}
+.hero__breadcrumb a:hover{text-decoration:underline}
+.hero__label{display:inline-block;padding:4px 12px;background:rgba(200,169,110,.2);border:1px solid rgba(200,169,110,.3);border-radius:100px;font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--clr-gold);margin-bottom:12px}
+.hero__title{font-family:var(--ff-serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:var(--clr-white);margin-bottom:8px}
+.hero__meta{display:flex;gap:24px;flex-wrap:wrap;font-size:.9rem;color:rgba(255,255,255,.7)}
+.hero__meta-item{display:flex;align-items:center;gap:6px}
+.hero__price{font-family:var(--ff-serif);font-size:1.8rem;font-weight:700;color:var(--clr-gold);margin-top:16px}
+.hero__price small{font-family:var(--ff-sans);font-size:.8rem;font-weight:400;color:rgba(255,255,255,.5)}
+
+.detail{padding:60px 0}.detail__inner{display:grid;grid-template-columns:1.5fr 1fr;gap:48px}
+.detail__body h2{font-family:var(--ff-serif);font-size:1.4rem;font-weight:700;margin-bottom:16px;margin-top:36px}
+.detail__body h2:first-child{margin-top:0}
+.detail__body p{font-size:.95rem;color:var(--clr-muted);line-height:1.8;margin-bottom:16px}
+.detail__highlights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.detail__highlight{display:flex;align-items:center;gap:10px;font-size:.9rem;padding:12px 16px;background:var(--clr-surface);border-radius:var(--radius);border:1px solid var(--clr-border)}
+.detail__highlight svg{flex-shrink:0;color:var(--clr-primary)}
+.sidebar{position:sticky;top:calc(var(--nav-h) + 24px)}
+.sidebar__card{background:var(--clr-surface);border-radius:var(--radius-lg);border:1px solid var(--clr-border);padding:28px;margin-bottom:20px}
+.sidebar__card h3{font-family:var(--ff-serif);font-size:1.1rem;font-weight:700;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--clr-border)}
+.sidebar__info{display:flex;flex-direction:column;gap:12px}
+.sidebar__info-item{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--clr-muted)}
+.sidebar__info-item strong{color:var(--clr-text);font-weight:600;margin-right:4px}
+.sidebar__cta{display:block;width:100%;text-align:center;padding:14px;background:var(--clr-primary);color:var(--clr-white);border:none;border-radius:var(--radius);font-family:var(--ff-sans);font-size:.95rem;font-weight:600;cursor:pointer;transition:var(--transition);margin-bottom:12px}
+.sidebar__cta:hover{background:var(--clr-primary-dark)}
+.sidebar__back{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;border:1px solid var(--clr-border);border-radius:var(--radius);font-family:var(--ff-sans);font-size:.85rem;font-weight:500;cursor:pointer;transition:var(--transition);background:var(--clr-white);color:var(--clr-muted)}
+.sidebar__back:hover{background:var(--clr-bg)}
+
+.related{padding:0 0 60px}
+.related h2{font-family:var(--ff-serif);font-size:1.3rem;text-align:center;margin-bottom:32px}
+.related__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.related__card{background:var(--clr-surface);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--clr-border);transition:var(--transition)}
+.related__card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--clr-gold)}
+.related__card-img{aspect-ratio:16/9;overflow:hidden;background:var(--clr-border)}
+.related__card-img div{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--clr-muted);font-size:.75rem}
+.related__card-body{padding:18px 20px}
+.related__card-title{font-family:var(--ff-serif);font-size:1rem;font-weight:700;margin-bottom:4px}
+.related__card-meta{font-size:.8rem;color:var(--clr-muted);margin-bottom:10px}
+.related__card-footer{display:flex;align-items:center;justify-content:space-between}
+.related__card-price{font-weight:700;color:var(--clr-primary)}
+.related__card-link{font-size:.82rem;font-weight:600;color:var(--clr-primary);display:flex;align-items:center;gap:4px}
+.related__card-link:hover{text-decoration:underline}
+
+.footer{background:#1a1513;color:rgba(255,255,255,.55);padding:48px 0 32px;font-size:.82rem}
+.footer__inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.footer__brand{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.75)}
+.footer__brand-icon{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--clr-gold);border-radius:50%;color:var(--clr-white);font-size:.7rem;font-weight:700;font-family:var(--ff-serif)}
+.footer__links{display:flex;gap:24px;list-style:none}
+.footer__links a{transition:var(--transition)}
+.footer__links a:hover{color:var(--clr-white)}
+.footer__divider{height:1px;background:rgba(255,255,255,.08);margin:24px 0;max-width:var(--max-w);margin-left:auto;margin-right:auto}
+.footer__bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;max-width:var(--max-w);margin:0 auto;padding:0 24px}
+
+@media(max-width:768px){.detail__inner{grid-template-columns:1fr}.detail{padding:32px 0}.detail__highlights{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <span class="nav__logo-icon">龙</span>
+      <span class="nav__logo-text"><span class="nav__logo-name"><%= settings.site_name || 'Happy Dragon' %></span><span class="nav__logo-tag">Beijing Tours</span></span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="/#hotels">Hotels</a></li>
+      <li><a href="/#tours">Tours</a></li>
+      <li><a href="/#journeys">Extended</a></li>
+      <li><a href="/#booking" class="nav__cta">Book Now</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero__bg">
+    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"/></svg>
+  </div>
+  <div class="hero__content">
+    <div class="hero__breadcrumb">
+      <a href="/">Home</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      <a href="/#tours">Tours</a>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      <span><%= tour.title %></span>
+    </div>
+    <% if (tour.label) { %><span class="hero__label"><%= tour.label %></span><% } %>
+    <h1 class="hero__title"><%= tour.title %></h1>
+    <div class="hero__meta">
+      <% if (tour.duration) { %><span class="hero__meta-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><%= tour.duration %></span><% } %>
+      <% if (tour.tour_type) { %><span class="hero__meta-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><%= tour.tour_type %></span><% } %>
+      <span class="hero__meta-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Beijing</span>
+    </div>
+    <% if (tour.price) { %><div class="hero__price"><%= tour.price %> <small>/ person</small></div><% } %>
+  </div>
+</section>
+
+<section class="detail">
+  <div class="container">
+    <div class="detail__inner">
+      <div class="detail__body">
+        <h2>Tour Overview</h2>
+        <p><%= tour.description %></p>
+
+        <h2>Highlights</h2>
+        <div class="detail__highlights">
+          <% if (tour.highlights) { tour.highlights.split(',').filter(function(t){return t.trim()}).forEach(function(t){ %>          <div class="detail__highlight"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <%= t.trim() %></div>
+          <% }) } else { %>
+          <div class="detail__highlight"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Expert English-speaking guide</div>
+          <div class="detail__highlight"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Hotel pickup & drop-off</div>
+          <div class="detail__highlight"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> All entrance fees included</div>
+          <div class="detail__highlight"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Small group or private option</div>
+          <div class="detail__highlight"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Free cancellation 48h prior</div>
+          <div class="detail__highlight"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Bottled water provided</div>
+          <% } %>
+        </div>
+
+        <h2>What to Expect</h2>
+        <% if (tour.long_description) { tour.long_description.split('\n').filter(function(p){return p.trim()}).forEach(function(p){ %>
+        <p><%= p %></p>
+        <% }) } else { %>
+        <p>Your guide will meet you at your hotel lobby at the scheduled time. From there, you will travel comfortably in our air-conditioned vehicle to the attraction. The tour includes ample time for photography, rest breaks, and lunch at a recommended local restaurant (optional).</p>
+        <p>All our guides are licensed, English-speaking professionals with years of experience bringing Beijing's history and culture to life. They are happy to tailor the experience to your interests.</p>
+        <% } %>
+      </div>
+
+      <div class="sidebar">   <div class="sidebar__card">
+          <h3>Book This Tour</h3>
+          <div class="sidebar__info">
+            <div class="sidebar__info-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <strong>Duration:</strong> <%= tour.duration || '—' %></div>
+            <div class="sidebar__info-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> <strong>Type:</strong> <%= tour.tour_type || '—' %></div>
+            <div class="sidebar__info-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <strong>Location:</strong> Beijing</div>
+            <div class="sidebar__info-item" style="font-size:1.2rem;font-weight:700;color:var(--clr-primary);border-top:1px solid var(--clr-border);padding-top:12px;margin-top:4px">
+              <strong>Price:</strong> <%= tour.price || 'Inquire' %> <span style="font-size:.8rem;font-weight:400;color:var(--clr-muted)"><% if (tour.price) { %>/ person<% } %></span>
+            </div>
+          </div>
+        </div>
+
+        <button class="sidebar__cta" onclick="window.location.href='/#booking'">Book This Tour</button>
+        <a href="/#tours" class="sidebar__back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Back to All Tours</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% if (relatedTours && relatedTours.length > 0) { %>
+<section class="related">
+  <div class="container">
+    <h2>More Tours You Might Like</h2>
+    <div class="related__grid">
+      <% relatedTours.forEach(t => { %>
+      <div class="related__card">
+        <div class="related__card-img"><div>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"/></svg>
+        </div></div>
+        <div class="related__card-body">
+          <div class="related__card-title"><%= t.title %></div>
+          <div class="related__card-meta"><%= t.duration || '' %><% if (t.duration && t.tour_type) { %> · <% } %><%= t.tour_type || '' %></div>
+          <div class="related__card-footer">
+            <span class="related__card-price"><%= t.price || 'Inquire' %></span>
+            <a href="/tour/<%= t.id %>" class="related__card-link">View Details<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand"><span class="footer__brand-icon">龙</span><span><%= settings.site_name || 'Happy Dragon Tours' %></span></div>
+    <ul class="footer__links"><li><a href="/">Home</a></li><li><a href="/#tours">Tours</a></li><li><a href="/#booking">Booking</a></li></ul>
+  </div>
+  <div class="footer__divider"></div>
+  <div class="footer__bottom">
+    <span>&copy; 2026 <%= settings.site_name || 'Happy Dragon Tours' %>. All rights reserved.</span>
+    <span><%= settings.contact_phone %></span>
+  </div>
+</footer>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>

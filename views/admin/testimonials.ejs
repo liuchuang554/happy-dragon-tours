@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Testimonials · Happy Dragon Tours</title><link rel="stylesheet" href="/css/admin.css"></head>
+<body><div class="admin-layout">
+<%- include('layout') %>
+<div class="main-content">
+  <div class="page-header"><h1>Testimonials</h1><a href="/admin/testimonials/new" class="btn btn--primary">+ Add Review</a></div>
+  <% if (testimonials.length === 0) { %><div class="empty"><p>No reviews yet. <a href="/admin/testimonials/new">Add one</a>.</p></div><% } else { %>
+  <div class="table-wrap">
+    <table><thead><tr><th>Order</th><th>Name</th><th>Origin</th><th>Rating</th><th></th></tr></thead><tbody>
+    <% testimonials.forEach(t => { %>
+    <tr>
+      <td><%= t.sort_order %></td>
+      <td><strong><%= t.name %></strong></td>
+      <td><%= t.origin || '—' %></td>
+      <td><%= '★'.repeat(t.rating) %></td>
+      <td style="white-space:nowrap">
+        <a href="/admin/testimonials/edit/<%= t.id %>" class="btn btn--sm btn--outline">Edit</a>
+        <a href="/admin/testimonials/delete/<%= t.id %>" class="btn btn--sm btn--danger" onclick="return confirm('Delete?')">Delete</a>
+      </td>
+    </tr>
+    <% }) %>
+    </tbody></table>
+  </div>
+  <% } %>
+</div></div></body>
+</html>

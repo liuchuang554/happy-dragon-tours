@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Hotels · Happy Dragon Tours</title><link rel="stylesheet" href="/css/admin.css"></head>
+<body><div class="admin-layout">
+<%- include('layout') %>
+<div class="main-content">
+  <div class="page-header"><h1>Hotels</h1><a href="/admin/hotels/new" class="btn btn--primary">+ Add Hotel</a></div>
+  <% if (hotels.length === 0) { %>
+  <div class="empty"><p>No hotels yet. <a href="/admin/hotels/new">Add your first hotel</a>.</p></div>
+  <% } else { %>
+  <div class="table-wrap">
+    <table><thead><tr><th>Order</th><th>Name</th><th>Location</th><th>Tags</th><th></th></tr></thead><tbody>
+    <% hotels.forEach(h => { %>
+    <tr>
+      <td><%= h.sort_order %></td>
+      <td><strong><%= h.name %></strong></td>
+      <td><%= h.location || '—' %></td>
+      <td><% (h.tags||'').split(',').filter(t=>t).forEach(t => { %><span class="tag" style="margin:1px"><%= t %></span> <% }) %></td>
+      <td style="white-space:nowrap">
+        <a href="/admin/hotels/edit/<%= h.id %>" class="btn btn--sm btn--outline">Edit</a>
+        <a href="/admin/hotels/delete/<%= h.id %>" class="btn btn--sm btn--danger" onclick="return confirm('Delete this hotel?')">Delete</a>
+      </td>
+    </tr>
+    <% }) %>
+    </tbody></table>
+  </div>
+  <% } %>
+</div></div></body>
+</html>

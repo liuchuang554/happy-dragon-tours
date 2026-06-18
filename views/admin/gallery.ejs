@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Gallery · Happy Dragon Tours</title><link rel="stylesheet" href="/css/admin.css"></head>
+<body><div class="admin-layout">
+<%- include('layout') %>
+<div class="main-content">
+  <div class="page-header"><h1>Gallery</h1></div>
+
+  <div class="gallery-upload">
+    <form method="post" action="/admin/gallery/upload" enctype="multipart/form-data" style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+      <div><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px">Upload Photo</label><input type="file" name="image" accept="image/*" required></div>
+      <div><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:4px">Alt Text</label><input name="alt_text" placeholder="Description"></div>
+      <button type="submit" class="btn btn--primary">Upload</button>
+    </form>
+  </div>
+
+  <% if (items.length === 0) { %>
+  <div class="empty"><p>No gallery photos yet. Upload your first image above.</p></div>
+  <% } else { %>
+  <div class="gallery-grid">
+    <% items.forEach(item => { %>
+    <div class="gallery-item">
+      <img src="/uploads/<%= item.filename %>" alt="<%= item.alt_text || '' %>" loading="lazy">
+      <div class="gallery-actions">
+        <a href="/admin/gallery/delete/<%= item.id %>" onclick="return confirm('Delete this photo?')" title="Delete">✕</a>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+</div></div></body>
+</html>

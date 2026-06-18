@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Content · Happy Dragon Tours</title><link rel="stylesheet" href="/css/admin.css"></head>
+<body><div class="admin-layout">
+<%- include('layout') %>
+<div class="main-content">
+  <div class="page-header"><h1>Site Content</h1></div>
+
+  <!-- Hero Content -->
+  <div class="section-group">
+    <h3>Hero Section</h3>
+    <form method="post" action="/admin/content/hero" enctype="multipart/form-data">
+      <div class="form-group"><label>Badge</label><input name="badge" value="<%= hero.badge || '' %>"></div>
+      <div class="form-group"><label>Title Line 1</label><input name="title_line1" value="<%= hero.title_line1 || '' %>"></div>
+      <div class="form-group"><label>Title Line 2 (italic)</label><input name="title_line2" value="<%= hero.title_line2 || '' %>"></div>
+      <div class="form-group"><label>Subtitle</label><textarea name="subtitle" rows="3"><%= hero.subtitle || '' %></textarea></div>
+      <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div><label>CTA 1 Text</label><input name="cta1_text" value="<%= hero.cta1_text || '' %>"></div>
+        <div><label>CTA 2 Text</label><input name="cta2_text" value="<%= hero.cta2_text || '' %>"></div>
+      </div>
+      <div class="form-actions"><button type="submit" class="btn btn--primary">Save Hero</button></div>
+    </form>
+  </div>
+
+  <!-- About Content -->
+  <div class="section-group">
+    <h3>About Section</h3>
+    <form method="post" action="/admin/content/about" enctype="multipart/form-data">
+      <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div><label>Section Label</label><input name="label" value="<%= about.label || '' %>"></div>
+        <div><label>Title</label><input name="title" value="<%= about.title || '' %>"></div>
+      </div>
+      <div class="form-group"><label>Paragraph 1</label><textarea name="paragraph1" rows="4"><%= about.paragraph1 || '' %></textarea></div>
+      <div class="form-group"><label>Paragraph 2</label><textarea name="paragraph2" rows="3"><%= about.paragraph2 || '' %></textarea></div>
+      <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div><label>Stat 1 Number</label><input name="stat1_num" value="<%= about.stat1_num || '' %>"></div>
+        <div><label>Stat 1 Label</label><input name="stat1_label" value="<%= about.stat1_label || '' %>"></div>
+      </div>
+      <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div><label>Stat 2 Number</label><input name="stat2_num" value="<%= about.stat2_num || '' %>"></div>
+        <div><label>Stat 2 Label</label><input name="stat2_label" value="<%= about.stat2_label || '' %>"></div>
+      </div>
+      <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div><label>Stat 3 Number</label><input name="stat3_num" value="<%= about.stat3_num || '' %>"></div>
+        <div><label>Stat 3 Label</label><input name="stat3_label" value="<%= about.stat3_label || '' %>"></div>
+      </div>
+      <div class="form-actions"><button type="submit" class="btn btn--primary">Save About</button></div>
+    </form>
+  </div>
+
+  <!-- Settings -->
+  <div class="section-group">
+    <h3>Site Settings & Contact Info</h3>
+    <form method="post" action="/admin/content/settings">
+      <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div><label>Site Name</label><input name="site_name" value="<%= settings.site_name || '' %>"></div>
+        <div><label>Site URL</label><input name="site_url" value="<%= settings.site_url || '' %>"></div>
+      </div>
+      <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div><label>Contact Email</label><input name="contact_email" value="<%= settings.contact_email || '' %>"></div>
+        <div><label>Contact Phone</label><input name="contact_phone" value="<%= settings.contact_phone || '' %>"></div>
+      </div>
+      <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div><label>Phone 2 (WeChat/WhatsApp)</label><input name="contact_phone2" value="<%= settings.contact_phone2 || '' %>"></div>
+        <div><label>Office Hours</label><input name="contact_hours" value="<%= settings.contact_hours || '' %>"></div>
+      </div>
+      <div class="form-group"><label>Address</label><textarea name="contact_address" rows="2"><%= settings.contact_address || '' %></textarea></div>
+      <div class="form-actions"><button type="submit" class="btn btn--primary">Save Settings</button></div>
+    </form>
+  </div>
+</div></div></body>
+</html>

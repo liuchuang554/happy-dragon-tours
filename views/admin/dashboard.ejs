@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dashboard · Happy Dragon Tours</title><link rel="stylesheet" href="/css/admin.css"></head>
+<body><div class="admin-layout">
+<%- include('layout') %>
+<div class="main-content">
+  <div class="page-header"><h1>Dashboard</h1><a href="/" target="_blank" class="btn btn--outline">View Site</a></div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-card__num"><%= stats.hotels %></div><div class="stat-card__label">Hotels</div></div>
+    <div class="stat-card"><div class="stat-card__num"><%= stats.tours %></div><div class="stat-card__label">Tours</div></div>
+    <div class="stat-card"><div class="stat-card__num"><%= stats.journeys %></div><div class="stat-card__label">Extended Journeys</div></div>
+    <div class="stat-card"><div class="stat-card__num"><%= stats.testimonials %></div><div class="stat-card__label">Testimonials</div></div>
+    <div class="stat-card"><div class="stat-card__num"><%= stats.gallery %></div><div class="stat-card__label">Gallery Photos</div></div>
+    <div class="stat-card"><div class="stat-card__num"><%= stats.bookings %><% if (stats.newBookings > 0) { %><span class="stat-card__badge"><%= stats.newBookings %> new</span><% } %></div><div class="stat-card__label">Bookings</div></div>
+  </div>
+  <% if (stats.recentBookings.length > 0) { %>
+  <h3 style="font-size:.95rem;margin-bottom:12px">Recent Bookings</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Interest</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+      <% stats.recentBookings.forEach(b => { %>
+        <tr>
+          <td style="white-space:nowrap;font-size:.8rem"><%= new Date(b.created_at).toLocaleDateString() %></td>
+          <td><%= b.name %></td>
+          <td><%= b.email %></td>
+          <td><%= b.interest || '—' %></td>
+          <td><% if (b.status === 'new') { %><span class="tag"><%= b.status %></span><% } else { %><%= b.status %><% } %></td>
+          <td><a href="/admin/bookings" class="btn btn--sm btn--outline">View</a></td>
+        </tr>
+      <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <% } %>
+</div></div></body>
+</html>

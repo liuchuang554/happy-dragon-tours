@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Extended Journeys · Happy Dragon Tours</title><link rel="stylesheet" href="/css/admin.css"></head>
+<body><div class="admin-layout">
+<%- include('layout') %>
+<div class="main-content">
+  <div class="page-header"><h1>Extended Journeys</h1><a href="/admin/journeys/new" class="btn btn--primary">+ Add Journey</a></div>
+  <% if (journeys.length === 0) { %><div class="empty"><p>No journeys yet. <a href="/admin/journeys/new">Add one</a>.</p></div><% } else { %>
+  <div class="table-wrap">
+    <table><thead><tr><th>Order</th><th>Region</th><th>Title</th><th></th></tr></thead><tbody>
+    <% journeys.forEach(j => { %>
+    <tr>
+      <td><%= j.sort_order %></td>
+      <td><span class="tag"><%= j.region %></span></td>
+      <td><strong><%= j.title %></strong></td>
+      <td style="white-space:nowrap">
+        <a href="/admin/journeys/edit/<%= j.id %>" class="btn btn--sm btn--outline">Edit</a>
+        <a href="/admin/journeys/delete/<%= j.id %>" class="btn btn--sm btn--danger" onclick="return confirm('Delete?')">Delete</a>
+      </td>
+    </tr>
+    <% }) %>
+    </tbody></table>
+  </div>
+  <% } %>
+</div></div></body>
+</html>
