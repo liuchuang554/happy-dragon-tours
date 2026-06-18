@@ -11,6 +11,7 @@ const db = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+try{require("./seed")}catch(e){}
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
