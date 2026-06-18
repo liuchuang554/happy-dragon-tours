@@ -96,4 +96,4 @@ if (!siteName) {
 
 console.log('\nDatabase seeded successfully!');
 console.log('Run: npm start\nto start the application.\n');
-process.exit(0);
+// process.exit(0) - removed for server startup;
