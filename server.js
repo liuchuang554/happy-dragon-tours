@@ -249,9 +249,9 @@ app.post('/admin/content/about', requireAuth, (req, res) => {
 });
 
 app.post('/admin/content/settings', requireAuth, (req, res) => {
-  const upd = db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?,?)');
+  const upd = db.prepare('UPDATE settings SET value = ? WHERE key = ?');
   ['site_name','site_url','contact_email','contact_phone','contact_phone2','contact_address','contact_hours'].forEach(k => {
-    if (req.body[k] !== undefined) upd.run(k, req.body[k]);
+    if (req.body[k] !== undefined) upd.run(req.body[k], k);
   });
   res.redirect('/admin/content');
 });
