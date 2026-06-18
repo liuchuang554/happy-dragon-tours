@@ -4,7 +4,7 @@
     "description":  "Happy Dragon Tours - Beijing travel CMS with admin panel",
     "main":  "server.js",
     "scripts":  {
-                    "start":  "node server.js",
+                    "start":  "node seed.js && node server.js",
                     "seed":  "node seed.js"
                 },
     "dependencies":  {
