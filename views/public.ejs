@@ -239,7 +239,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:aut
   <div class="container">
     <div class="about__inner">
       <div class="about__image">
-        <img src="https://images.unsplash.com/photo-1570459036415-bd3fade60a6c?w=700&q=80" alt="Forbidden City" loading="lazy">
+        <img src=`<%= about.image || `'https://images.unsplash.com/photo-1570459036415-bd3fade60a6c?w=700&q=80' %>` alt="Forbidden City" loading="lazy">
         <div class="about__image-border"></div>
       </div>
       <div class="about__content">

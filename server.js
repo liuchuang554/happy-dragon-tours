@@ -245,13 +245,13 @@ app.post('/admin/content/hero', requireAuth, (req, res) => { console.log('SAVE H
   res.redirect('/admin/content');
 });
 
-app.post('/admin/content/about', requireAuth, (req, res) => {
-  const { label, title, paragraph1, paragraph2, stat1_num, stat1_label, stat2_num, stat2_label, stat3_num, stat3_label } = req.body;
+app.post('/admin/content/about', requireAuth, upload.single('about_image'), (req, res) => {
+  const { label, title, paragraph1, paragraph2, stat1_num, stat1_label, stat2_num, stat2_label, stat3_num, stat3_label } = req.body; const image = req.file ? '/uploads/' + req.file.filename : (req.body.existing_image || '');
   const about = db.prepare('SELECT * FROM about_content LIMIT 1').get();
   if (about) {
-    db.prepare('UPDATE about_content SET label=?,title=?,paragraph1=?,paragraph2=?,stat1_num=?,stat1_label=?,stat2_num=?,stat2_label=?,stat3_num=?,stat3_label=? WHERE id=?').run(label, title, paragraph1||'', paragraph2||'', stat1_num, stat1_label, stat2_num, stat2_label, stat3_num, stat3_label, about.id);
+    db.prepare('UPDATE about_content SET label=?,title=?,paragraph1=?,paragraph2=?,stat1_num=?,stat1_label=?,stat2_num=?,stat2_label=?,stat3_num=?,stat3_label=?,image=? WHERE id=?').run(label, title, paragraph1||'', paragraph2||'', stat1_num, stat1_label, stat2_num, stat2_label, stat3_num, stat3_label, image, about.id);
   } else {
-    db.prepare('INSERT INTO about_content (label,title,paragraph1,paragraph2,stat1_num,stat1_label,stat2_num,stat2_label,stat3_num,stat3_label) VALUES (?,?,?,?,?,?,?,?,?,?)').run(label, title, paragraph1||'', paragraph2||'', stat1_num, stat1_label, stat2_num, stat2_label, stat3_num, stat3_label);
+    db.prepare('INSERT INTO about_content (label,title,paragraph1,paragraph2,stat1_num,stat1_label,stat2_num,stat2_label,stat3_num,stat3_label,image) VALUES (?,?,?,?,?,?,?,?,?,?,?)').run(label, title, paragraph1||'', paragraph2||'', stat1_num, stat1_label, stat2_num, stat2_label, stat3_num, stat3_label, image);
   }
   res.redirect('/admin/content');
 });
