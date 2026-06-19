@@ -9,7 +9,7 @@
   <!-- Hero Content -->
   <div class="section-group">
     <h3>Hero Section</h3>
-    <form method="post" action="/admin/content/hero" enctype="multipart/form-data">
+    <form method="post" action="/admin/content/hero">
       <div class="form-group"><label>Badge</label><input name="badge" value="<%= hero.badge || '' %>"></div>
       <div class="form-group"><label>Title Line 1</label><input name="title_line1" value="<%= hero.title_line1 || '' %>"></div>
       <div class="form-group"><label>Title Line 2 (italic)</label><input name="title_line2" value="<%= hero.title_line2 || '' %>"></div>
@@ -25,7 +25,7 @@
   <!-- About Content -->
   <div class="section-group">
     <h3>About Section</h3>
-    <form method="post" action="/admin/content/about" enctype="multipart/form-data">
+    <form method="post" action="/admin/content/about">
       <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div><label>Section Label</label><input name="label" value="<%= about.label || '' %>"></div>
         <div><label>Title</label><input name="title" value="<%= about.title || '' %>"></div>
