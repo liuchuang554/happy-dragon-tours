@@ -41,6 +41,15 @@ function requireAuth(req, res, next) {
   res.redirect('/admin/login');
 }
 
+app.get('/health', (req, res) => res.send('OK'));
+
+
+
+app.get('/admin/debug', requireAuth, (req, res) => {
+  var h = db.prepare('SELECT * FROM hero_content').all();
+  var s = db.prepare('SELECT * FROM settings').all();
+  res.json({hero:h, settings:s});
+});
 /* Public routes */
 app.get('/', (req, res) => {
   const get = (key, def = '') => { const r = db.prepare('SELECT value FROM settings WHERE key = ?').get(key); return r ? r.value : def; };
@@ -225,7 +234,7 @@ app.get('/admin/content', requireAuth, (req, res) => {
   res.render('admin/content', { hero, about, settings:sets });
 });
 
-app.post('/admin/content/hero', requireAuth, (req, res) => {
+app.post('/admin/content/hero', requireAuth, (req, res) => { console.log('SAVE Hero:', JSON.stringify(req.body));
   const { badge, title_line1, title_line2, subtitle, cta1_text, cta2_text } = req.body;
   const hero = db.prepare('SELECT * FROM hero_content LIMIT 1').get();
   if (hero) {
@@ -247,7 +256,7 @@ app.post('/admin/content/about', requireAuth, (req, res) => {
   res.redirect('/admin/content');
 });
 
-app.post('/admin/content/settings', requireAuth, (req, res) => {
+app.post('/admin/content/settings', requireAuth, (req, res) => { console.log('SAVE Settings:', Object.keys(req.body).join(','));
   const upd = db.prepare('UPDATE settings SET value = ? WHERE key = ?');
   ['site_name','site_url','contact_email','contact_phone','contact_phone2','contact_address','contact_hours'].forEach(k => {
     if (req.body[k] !== undefined) upd.run(req.body[k], k);
