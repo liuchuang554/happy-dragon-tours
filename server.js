@@ -257,9 +257,9 @@ app.post('/admin/content/about', requireAuth, upload.single('about_image'), (req
 });
 
 app.post('/admin/content/settings', requireAuth, (req, res) => { console.log('SAVE Settings:', Object.keys(req.body).join(','));
-  const upd = db.prepare('UPDATE settings SET value = ? WHERE key = ?');
+  const upd = db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?,?)');
   ['site_name','site_url','contact_email','contact_phone','contact_phone2','contact_address','contact_hours'].forEach(k => {
-    if (req.body[k] !== undefined) upd.run(req.body[k], k);
+    if (req.body[k] !== undefined) upd.run(k, req.body[k]);
   });
   res.redirect('/admin/content');
 });
