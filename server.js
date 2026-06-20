@@ -52,7 +52,7 @@ app.get('/admin/debug', requireAuth, (req, res) => {
 });
 /* Public routes */
 app.get('/', (req, res) => {
-  const get = (key, def = '') => { const r = db.prepare('SELECT value FROM settings WHERE key = ?').get(key); return r ? r.value : def; };
+  const get = (key, def = '') => { try{var e=process.env[key.toUpperCase()];if(e)return e}catch(e){} const r = db.prepare('SELECT value FROM settings WHERE key = ?').get(key); return r ? r.value : def; };
   const s = {site_name:get('site_name'),site_url:get('site_url'),contact_email:get('contact_email'),contact_phone:get('contact_phone'),contact_phone2:get('contact_phone2'),contact_address:get('contact_address'),contact_hours:get('contact_hours')};
   const hero = db.prepare('SELECT * FROM hero_content LIMIT 1').get() || {};
   const about = db.prepare('SELECT * FROM about_content LIMIT 1').get() || {};
@@ -67,7 +67,7 @@ app.get('/', (req, res) => {
 app.get('/tour/:id', (req, res) => {
   const tour = db.prepare('SELECT * FROM tours WHERE id = ?').get(req.params.id);
   if (!tour) return res.redirect('/#tours');
-  const get = (k,d='')=>{const r=db.prepare('SELECT value FROM settings WHERE key = ?').get(k);return r?r.value:d;};
+  const get = (k,d='')=>{try{var e=process.env[k.toUpperCase()];if(e)return e}catch(e){} const r=db.prepare('SELECT value FROM settings WHERE key = ?').get(k);return r?r.value:d;};
   const s = {site_name:get('site_name'),site_url:get('site_url'),contact_email:get('contact_email'),contact_phone:get('contact_phone'),contact_phone2:get('contact_phone2'),contact_address:get('contact_address'),contact_hours:get('contact_hours')};
   const tours = db.prepare('SELECT * FROM tours WHERE id != ? ORDER BY sort_order LIMIT 4').all(req.params.id);
   res.render('tour', { tour:tour, settings:s, relatedTours:tours });
@@ -76,7 +76,7 @@ app.get('/tour/:id', (req, res) => {
 app.get('/journey/:id', (req, res) => {
   const journey = db.prepare('SELECT * FROM journeys WHERE id = ?').get(req.params.id);
   if (!journey) return res.redirect('/#journeys');
-  const get = (k,d='')=>{const r=db.prepare('SELECT value FROM settings WHERE key = ?').get(k);return r?r.value:d;};
+  const get = (k,d='')=>{try{var e=process.env[k.toUpperCase()];if(e)return e}catch(e){} const r=db.prepare('SELECT value FROM settings WHERE key = ?').get(k);return r?r.value:d;};
   const s = {site_name:get('site_name'),site_url:get('site_url'),contact_email:get('contact_email'),contact_phone:get('contact_phone'),contact_phone2:get('contact_phone2'),contact_address:get('contact_address'),contact_hours:get('contact_hours')};
   const journeys = db.prepare('SELECT * FROM journeys WHERE id != ? ORDER BY sort_order').all(req.params.id);
   res.render('journey', { journey, settings:s, relatedJourneys:journeys });
@@ -85,7 +85,7 @@ app.get('/journey/:id', (req, res) => {
 app.get('/hotel/:id', (req, res) => {
   const hotel = db.prepare('SELECT * FROM hotels WHERE id = ?').get(req.params.id);
   if (!hotel) return res.redirect('/#hotels');
-  const get = (k,d='')=>{const r=db.prepare('SELECT value FROM settings WHERE key = ?').get(k);return r?r.value:d;};
+  const get = (k,d='')=>{try{var e=process.env[k.toUpperCase()];if(e)return e}catch(e){} const r=db.prepare('SELECT value FROM settings WHERE key = ?').get(k);return r?r.value:d;};
   const s = {site_name:get('site_name'),site_url:get('site_url'),contact_email:get('contact_email'),contact_phone:get('contact_phone'),contact_phone2:get('contact_phone2'),contact_address:get('contact_address'),contact_hours:get('contact_hours')};
   const hotels = db.prepare('SELECT * FROM hotels WHERE id != ? ORDER BY sort_order').all(req.params.id);
   res.render('hotel', { hotel, settings:s, relatedHotels:hotels });
