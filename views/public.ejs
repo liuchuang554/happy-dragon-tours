@@ -474,7 +474,7 @@ lucide.createIcons();
 
 /* Scroll animations */
 const animEls = document.querySelectorAll('.hotel-card, .tour-card, .journey-card, .test-card, .about__stat');
-new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }}); }, { threshold: .12 }).observe(animEls);
+new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }}); }, { threshold: .12 })// removed broken observer
 document.querySelectorAll('.hotel-card, .tour-card, .journey-card, .test-card, .about__stat').forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; el.style.transition = 'opacity 600ms ease-out, transform 600ms ease-out'; });
 /* Re-observe after setting initial styles */
 setTimeout(() => {
