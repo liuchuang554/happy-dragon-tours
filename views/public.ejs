@@ -411,19 +411,19 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:aut
       <div class="booking__info">
         <div class="booking__item">
           <div class="booking__item-icon" data-lucide="phone"></div>
-          <div><p class="booking__item-title">Call Us</p><p class="booking__item-desc"><%= settings.contact_phone %><br><%= settings.contact_phone2 %></p></div>
+          <div><p class="booking__item-title">Call Us</p><p class="booking__item-desc"><%= settings.contact_phone || '+86 10 8888 8888' %><br><%= settings.contact_phone2 || '+86 139 1234 5678' %></p></div>
         </div>
         <div class="booking__item">
           <div class="booking__item-icon" data-lucide="mail"></div>
-          <div><p class="booking__item-title">Email</p><p class="booking__item-desc"><%= settings.contact_email %></p></div>
+          <div><p class="booking__item-title">Email</p><p class="booking__item-desc"><%= settings.contact_email || 'bookings@happydragontours.com' %></p></div>
         </div>
         <div class="booking__item">
           <div class="booking__item-icon" data-lucide="map-pin"></div>
-          <div><p class="booking__item-title">Visit Us</p><p class="booking__item-desc"><%= settings.contact_address %></p></div>
+          <div><p class="booking__item-title">Visit Us</p><p class="booking__item-desc"><%= settings.contact_address || 'No. 18 Donghuamen Street, Dongcheng District, Beijing, China' %></p></div>
         </div>
         <div class="booking__item">
           <div class="booking__item-icon" data-lucide="clock"></div>
-          <div><p class="booking__item-title">Office Hours</p><p class="booking__item-desc"><%= settings.contact_hours %></p></div>
+          <div><p class="booking__item-title">Office Hours</p><p class="booking__item-desc"><%= settings.contact_hours || 'Mon-Sat: 9:00 AM - 8:00 PM (CST)' %></p></div>
         </div>
       </div>
       <form class="booking__form" id="bookingForm">
@@ -515,7 +515,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     }
   } catch(err) {
     msg.style.display = 'block';
-    msg.innerHTML = 'Something went wrong. Please email us directly at <%= settings.contact_email %>.';
+    msg.innerHTML = 'Something went wrong. Please email us directly at <%= settings.contact_email || 'bookings@happydragontours.com' %>.';
     btn.disabled = false;
     btn.textContent = 'Submit Inquiry';
   }
